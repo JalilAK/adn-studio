@@ -104,7 +104,7 @@ export function ExportModal({ onClose, videoClips, audioClips, totalDuration }: 
 
       setP(99, 'Finalisation…')
       const out = await ff.readFile('output.mp4')
-      const blob = new Blob([out instanceof Uint8Array ? out : new TextEncoder().encode(out as string)], { type: 'video/mp4' })
+      const blob = new Blob([new Uint8Array(out as Uint8Array).buffer.slice(0)], { type: 'video/mp4' })
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob)
       a.download = 'diaporama_adn_funeraire.mp4'; a.click()
       setPhase('done'); setP(100, '')
